@@ -43,7 +43,7 @@ app.get('/api/workouts', (req, res) => {
       }
     }
   ])
-  .then(workoutData => {
+  .then((workoutData) => {
     res.json(workoutData)
   })
   .catch(err => {
@@ -51,9 +51,45 @@ app.get('/api/workouts', (req, res) => {
   });
 });
 
+app.get("/api/workouts/range", (req, res) => {
+  Workout.aggregate([
+    {
+      $addFields: {
+        totalDuration: { 
+          $sum: "$exercise.duration" 
+        }
+      }
+    }])
+    .sort({ day: -1 })
+    .then((workoutData) => {
+      res.json(workoutData);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+
+app.put("/api/workouts/:id", (req, res) => {
+  Workout.updateOne(
+    {
+      _id: req.params.id
+    },
+    {
+      $push: { 
+        exercises: req.body 
+      }
+    })
+    .then((workoutData) => {
+      res.json(workoutData);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
+
 app.post('/api/workouts', (req, res) => {
   Workout.create(req.body)
-    .then(workoutData => {
+    .then((workoutData) => {
       res.json(workoutData);
     })
     .catch((err) => {
