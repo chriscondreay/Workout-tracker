@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const mongojs = require("mongojs");
 const path = require("path");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
@@ -12,7 +14,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MOGODB_URI || "mongodb://localhost/workout", {
+mongoose.connect(process.env.MOGODB_URI || "mongodb://localhost/workout-tracker", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
