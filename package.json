@@ -6,11 +6,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run-script build",
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "seed": "node seeders/seed.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "seed": "node seeders/seed.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +20,7 @@
     "mongoose": "^5.3.16",
     "morgan": "^1.9.1"
   },
-  "devDependencies": {
-    "gh-pages": "^6.0.0"
+  "engines": {
+    "node": ">=16.20.1 <19.0.0"
   }
 }
