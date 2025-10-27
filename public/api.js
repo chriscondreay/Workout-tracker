@@ -1,3 +1,17 @@
+async function parseJsonOrThrow(res) {
+    if (!res) throw new Error('No response (network error?)');
+    if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(`HTTP ${res.status} at ${res.url}\n${text.slice(0,200)}`);
+    }
+    const ct = res.headers.get('content-type') || '';
+    if (!ct.includes('application/json')) {
+        const text = await res.text();
+        throw new Error(`Expected JSON but got ${ct}\nSnippet: ${text.slice(0,200)}`);
+    }
+    return res.json();
+}
+
 const API = {
   async getLastWorkout() {
     let res;
