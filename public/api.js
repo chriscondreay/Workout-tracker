@@ -35,7 +35,16 @@ const API = {
 
     // Add a new exercise to a workout
     async addExercise(data) {
-        const id = new URLSearchParams(location.search).get("id");
+        let id = new URLSearchParams(location.search).get("id");
+        if (!id) {
+            const created = await this.createWorkout();
+            id = created && created._id;
+            if (!id) throw new Error("Failed to create workout");
+
+            const url = new URL(location.href);
+            url.searchParams.set("id", id);
+            history.replaceState(null, '', url);
+        }
         const res = await fetch(`${API_ORIGIN}/api/workouts/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
