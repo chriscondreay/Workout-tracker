@@ -3,7 +3,7 @@
 // Automatically switch between local and production API URLs
 const API_ORIGIN = location.hostname.includes("localhost")
     ? "http://localhost:3000"                  // when running locally with node server.js
-    : "https://your-backend-domain.com";       // your deployed Node/Express backend URL (Render, Railway, etc.)
+    : "https://workout-tracker-gaup.onrender.com";       // your deployed Node/Express backend URL (Render, Railway, etc.)
 
 // Helper to validate JSON responses
 async function parseJsonOrThrow(res) {

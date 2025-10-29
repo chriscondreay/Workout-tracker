@@ -3,11 +3,27 @@ const mongoose = require("mongoose");
 const mongojs = require("mongojs");
 const path = require("path");
 const dotenv = require("dotenv");
+const cors = require("cors");
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+const allowedOrigins = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://workout-tracker-d4f93.web.app",     // your Firebase Hosting (if used)
+    "https://workout-tracker-gaup.onrender.com" // if serving the frontend from Render too
+];
+
+app.use(cors({
+    origin: allowedOrigins,
+    methods: ["GET","POST","PUT","OPTIONS"],
+    allowedHeaders: ["Content-Type","Authorization"]
+}));
+
+app.options("*", cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
