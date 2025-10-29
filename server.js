@@ -53,39 +53,27 @@ app.get('/exercise', (req, res) => {
 });
 
 app.get('/api/workouts', (req, res) => {
-  Workout.aggregate([
-    {
-      $addFields: {
-        totalDuration: {
-          $sum: "$exercise.duration"
-        }
-      }
-    }
-  ])
-  .then((workoutData) => {
-    res.json(workoutData)
-  })
-  .catch(err => {
-    res.status(400).json(err)
-  });
+    Workout.find({})
+        .then((workoutData) => {
+            res.json(workoutData);
+        })
+        .catch(err => {
+            console.error('Error fetching workouts:', err);
+            res.status(400).json(err);
+        });
 });
 
 app.get("/api/workouts/range", (req, res) => {
-  Workout.aggregate([
-    {
-      $addFields: {
-        totalDuration: { 
-          $sum: "$exercise.duration" 
-        }
-      }
-    }])
-    .sort({ day: -1 })
-    .then((workoutData) => {
-      res.json(workoutData);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
+    Workout.find({})
+        .sort({ day: -1 })
+        .limit(7)
+        .then((workoutData) => {
+            res.json(workoutData);
+        })
+        .catch(err => {
+            console.error('Error fetching workout range:', err);
+            res.status(400).json(err);
+        });
 });
 
 app.put("/api/workouts/:id", (req, res) => {
@@ -112,7 +100,7 @@ app.post('/api/workouts', (req, res) => {
       res.json(workoutData);
     })
     .catch((err) => {
-      res.status(400).json(err);
+      res.status(400).json({ error: err.message });
     });
 });
 
