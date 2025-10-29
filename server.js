@@ -33,7 +33,7 @@ console.log("MongoDB Connection Debug:");
 console.log("MONGODB_URI exists:", !!process.env.MONGODB_URI);
 
 // Remove any potential quotes from the connection string
-const MONGODB_URI = process.env.MONGODB_URI ? process.env.MONGODB_URI.replace(/['"]/g, '') : 'mongodb+srv://condreaychris_db_user:xx48tanL7q3SHUeu@cluster0.kcmnioq.mongodb.net/';
+const MONGODB_URI = process.env.MONGODB_URI ? process.env.MONGODB_URI.replace(/['"]/g, '') : 'mongodb+srv://workout_db:Nita2020!CeC@cluster0.6vjofs2.mongodb.net/';
 
 console.log("Attempting to connect to MongoDB...");
 
