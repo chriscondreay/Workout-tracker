@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://workout-tracker-db:bUGLdun6rvBgrInZ@main.jkye0qd.mongodb.net/", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://condreaychris_db_user:xx48tanL7q3SHUeu@cluster0.kcmnioq.mongodb.net/", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
